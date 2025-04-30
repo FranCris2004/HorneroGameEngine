@@ -1,0 +1,87 @@
+
+#include <hornero/core/event/event_bus.hpp>
+
+inline hornero::core::event::EventBus::subscribers_map_type
+    hornero::core::event::EventBus::subscribers;
+
+inline hornero::core::event::EventBus::generic_subscribers_map_type
+    hornero::core::event::EventBus::generic_subscribers;
+
+inline hornero::core::event::EventBus::event_queue_type
+    hornero::core::event::EventBus::events;
+
+// Helper para manejo seguro de dynamic_cast
+template <EventType Tp>
+auto safe_dispatch(const BaseEvent &event, const EventCallback<Tp> &callback) -> void
+{
+    if (const auto *casted = dynamic_cast<const Tp *>(&event))
+        callback(*casted);
+
+    // Podría añadir logging aquí para casts fallidos
+}
+
+template <GenericEventType Tp>
+inline void
+hornero::core::event::EventBus::Subscribe(const std::string &type, const GenericEventCallback &callback)
+{
+    generic_subscribers[GenericEvent::HashType(type)].emplace_back(
+        [callback = std::move(callback)](const GenericEvent &event)
+        {
+            callback(static_cast<const Tp &>(event));
+        });
+}
+
+template <NonGenericEventType Tp>
+inline void
+hornero::core::event::EventBus::Subscribe(const BaseEventCallback &callback)
+{
+    subscribers[std::type_index(typeid(Tp))].emplace_back(
+        [callback = std::move(callback)](const BaseEvent &event)
+        {
+            safe_dispatch<Tp>(event, callback);
+        });
+}
+
+inline void
+hornero::core::event::EventBus::SubscribeGeneric(const std::string &type, const GenericEventCallback &callback)
+{
+    generic_subscribers[GenericEvent::HashType(type)].push_back(callback);
+}
+
+template <EventType Tp, typename... Args>
+inline void hornero::core::event::EventBus::Post(Args... args)
+{
+    events.push(std::make_unique<Tp>(std::forward<Args>(args)...));
+}
+
+inline void
+hornero::core::event::EventBus::DispatchQueued()
+{
+    for (; !events.empty(); events.pop())
+        InmediateDispatch(*events.front());
+}
+
+template <typename Map, typename Key>
+inline void
+DispatchCallbacks(Map &map, const Key &key, const auto &event)
+{
+    const auto it = map.find(key);
+
+    if (it != map.end())
+        for (const auto &callback : it->second)
+            callback(event);
+}
+
+template <GenericEventType Tp>
+inline void
+hornero::core::event::EventBus::InmediateDispatch(const Tp &event)
+{
+    DispatchCallbacks(generic_subscribers, event.GetTypeHash(), event);
+}
+
+template <NonGenericEventType Tp>
+inline void
+hornero::core::event::EventBus::InmediateDispatch(const Tp &event)
+{
+    DispatchCallbacks(subscribers, std::type_index(typeid(Tp)), event);
+}
