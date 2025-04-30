@@ -1,6 +1,6 @@
 
-#ifndef HORNERO_CORE_EVENT_BUS_HPP
-#define HORNERO_CORE_EVENT_BUS_HPP
+#ifndef HORNERO_CORE_EVENT_EVENT_BUS_HPP
+#define HORNERO_CORE_EVENT_EVENT_BUS_HPP
 
 #include <functional>
 #include <typeindex>

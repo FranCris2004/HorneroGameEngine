@@ -1,6 +1,6 @@
 
-#ifndef HORNERO_CORE_EVENTS_EVENT_HPP
-#define HORNERO_CORE_EVENTS_EVENT_HPP
+#ifndef HORNERO_CORE_EVENT_EVENT_HPP
+#define HORNERO_CORE_EVENT_EVENT_HPP
 
 #include <type_traits>
 
@@ -17,4 +17,4 @@ namespace hornero::core::event
     concept EventType = std::derived_from<Tp, BaseEvent>;
 } // namespace hornero
 
-#endif // HORNERO_CORE_EVENTS_EVENT_HPP
+#endif // HORNERO_CORE_EVENT_EVENT_HPP
