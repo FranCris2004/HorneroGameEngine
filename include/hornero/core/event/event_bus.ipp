@@ -10,14 +10,14 @@ inline hornero::core::event::EventBus::generic_subscribers_map_type
 inline hornero::core::event::EventBus::event_queue_type
     hornero::core::event::EventBus::events;
 
-// Helper para manejo seguro de dynamic_cast
+// Helper for safe handling of dynamic_cast
 template <EventType Tp>
 auto safe_dispatch(const BaseEvent &event, const EventCallback<Tp> &callback) -> void
 {
     if (const auto *casted = dynamic_cast<const Tp *>(&event))
         callback(*casted);
-
-    // Podría añadir logging aquí para casts fallidos
+    
+    // TODO - Log fail
 }
 
 template <GenericEventType Tp>
