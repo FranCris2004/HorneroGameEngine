@@ -1,6 +1,6 @@
 
-#ifndef HORNERO_EVENT_BUS_HPP
-#define HORNERO_EVENT_BUS_HPP
+#ifndef HORNERO_CORE_EVENT_BUS_HPP
+#define HORNERO_CORE_EVENT_BUS_HPP
 
 #include <functional>
 #include <typeindex>
@@ -62,4 +62,4 @@ namespace hornero::core::event
 
 #include "event_bus.ipp"
 
-#endif // HORNERO_EVENT_BUS_HPP
+#endif // HORNERO_CORE_EVENT_BUS_HPP
