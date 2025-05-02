@@ -7,7 +7,7 @@
 #include <unordered_map>
 
 #include <hornero/core/event/event.hpp>
-#include <hornero/utils/numeric_types.hpp>
+#include <hornero/utils/hash/fnv1a.hpp>
 
 namespace hornero::core::event
 {
@@ -15,7 +15,7 @@ namespace hornero::core::event
     class GenericEvent : public BaseEvent
     {
     public:
-        using hash_type = utils::u32;
+        using hash_value_type = utils::hash::Fnv1a32::hash_value_type;
         using field_key_type = std::string;
         using field_value_type = std::string;
         using fields_type = std::unordered_map<field_key_type, field_value_type>;
@@ -26,7 +26,7 @@ namespace hornero::core::event
 
         // Getters
 
-        hash_type GetTypeHash() const;
+        hash_value_type GetTypeHash() const;
 
         std::vector<std::string> GetFieldNames() const;
 
@@ -42,10 +42,10 @@ namespace hornero::core::event
 
         // Static Methods
 
-        static hash_type HashType(const std::string &type);
+        static hash_value_type HashType(const std::string &type);
 
     private:
-        hash_type type_hash;
+        hash_value_type type_hash;
 
         fields_type fields;
     };
