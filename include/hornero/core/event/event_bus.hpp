@@ -35,9 +35,7 @@ namespace hornero::core::event
         static void Subscribe(const std::string &type, const GenericEventCallback &callback);
 
         template <NonGenericEventType Tp>
-        static void Subscribe(const BaseEventCallback &callback);
-
-        static void SubscribeGeneric(const std::string &type, const GenericEventCallback &callback);
+        static void Subscribe(const EventCallback<Tp> &callback);
 
         template <EventType Tp, typename... Args>
         static void Post(Args... args);
