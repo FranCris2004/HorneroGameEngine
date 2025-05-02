@@ -26,7 +26,7 @@ namespace hornero::core::event
             std::unordered_map<std::type_index, std::vector<BaseEventCallback>>;
 
         using generic_subscribers_map_type =
-            std::unordered_map<GenericEvent::hash_type, std::vector<GenericEventCallback>>;
+            std::unordered_map<GenericEvent::hash_value_type, std::vector<GenericEventCallback>>;
 
         using event_queue_type =
             std::queue<std::unique_ptr<BaseEvent>>;
