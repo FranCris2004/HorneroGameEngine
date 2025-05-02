@@ -16,7 +16,7 @@ auto safe_dispatch(const BaseEvent &event, const EventCallback<Tp> &callback) ->
 {
     if (const auto *casted = dynamic_cast<const Tp *>(&event))
         callback(*casted);
-    
+
     // TODO - Log fail
 }
 
@@ -33,19 +33,13 @@ hornero::core::event::EventBus::Subscribe(const std::string &type, const Generic
 
 template <NonGenericEventType Tp>
 inline void
-hornero::core::event::EventBus::Subscribe(const BaseEventCallback &callback)
+hornero::core::event::EventBus::Subscribe(const EventCallback<Tp> &callback)
 {
     subscribers[std::type_index(typeid(Tp))].emplace_back(
         [callback = std::move(callback)](const BaseEvent &event)
         {
             safe_dispatch<Tp>(event, callback);
         });
-}
-
-inline void
-hornero::core::event::EventBus::SubscribeGeneric(const std::string &type, const GenericEventCallback &callback)
-{
-    generic_subscribers[GenericEvent::HashType(type)].push_back(callback);
 }
 
 template <EventType Tp, typename... Args>
