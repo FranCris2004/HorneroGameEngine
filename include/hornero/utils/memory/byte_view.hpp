@@ -18,10 +18,10 @@ namespace hornero::utils::memory
         using SpanType = std::span<const std::byte>;
 
         // Construir desde std::string_view o const char*
-        constexpr ByteView(const char *str)
+        ByteView(const char *str)
             : m_span{reinterpret_cast<const std::byte *>(str), std::char_traits<char>::length(str)} {}
 
-        constexpr ByteView(std::string_view sv)
+        ByteView(std::string_view sv)
             : m_span{reinterpret_cast<const std::byte *>(sv.data()), sv.size()} {}
 
         // Desde std::span de std::byte
@@ -52,7 +52,7 @@ namespace hornero::utils::memory
         }
 
         // Desde void* + tamaño
-        constexpr ByteView(const void *ptr, std::size_t size)
+        ByteView(const void *ptr, std::size_t size)
             : m_span{reinterpret_cast<const std::byte *>(ptr), size} {}
 
         constexpr const std::byte *data() const { return m_span.data(); }
