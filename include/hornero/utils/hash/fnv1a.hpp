@@ -3,7 +3,7 @@
 #define HORNERO_UTILS_HASH_FNV1A_HPP
 
 #include <hornero/utils/hash/hasher.hpp>
-#include <hornero/utils/numeric_types.hpp>
+#include <hornero/utils/types.hpp>
 
 namespace hornero::utils::hash
 {

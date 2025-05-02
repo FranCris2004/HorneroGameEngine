@@ -1,8 +1,9 @@
 
-#ifndef HORNERO_UTILS_NUMERIC_TYPES_HPP
-#define HORNERO_UTILS_NUMERIC_TYPES_HPP
+#ifndef HORNERO_UTILS_TYPES_HPP
+#define HORNERO_UTILS_TYPES_HPP
 
 #include <cstdint>
+#include <cstddef>
 
 namespace hornero::utils
 {
@@ -21,6 +22,9 @@ namespace hornero::utils
     // Floating point
     using f32 = float;
     using f64 = double;
+
+    // Size type
+    using size_t = std::size_t;
 } // namespace hornero::utils
 
-#endif // HORNERO_UTILS_NUMERIC_TYPES_HPP
+#endif // HORNERO_UTILS_TYPES_HPP

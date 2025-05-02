@@ -3,7 +3,7 @@
 #define HORNERO_UTILS_NUMERIC_LIMITS_HPP
 
 #include <limits>
-#include <hornero/utils/numeric_types.hpp>
+#include <hornero/utils/types.hpp>
 
 namespace hornero::utils
 {
