@@ -11,8 +11,8 @@ inline hornero::core::event::EventBus::event_queue_type
     hornero::core::event::EventBus::events;
 
 // Helper for safe handling of dynamic_cast
-template <EventType Tp>
-auto safe_dispatch(const BaseEvent &event, const EventCallback<Tp> &callback) -> void
+template <hornero::core::event::EventType Tp>
+auto safe_dispatch(const hornero::core::event::BaseEvent &event, const hornero::core::event::EventCallback<Tp> &callback) -> void
 {
     if (const auto *casted = dynamic_cast<const Tp *>(&event))
         callback(*casted);
@@ -20,7 +20,7 @@ auto safe_dispatch(const BaseEvent &event, const EventCallback<Tp> &callback) ->
     // TODO - Log fail
 }
 
-template <GenericEventType Tp>
+template <hornero::core::event::GenericEventType Tp>
 inline void
 hornero::core::event::EventBus::Subscribe(const std::string &type, const GenericEventCallback &callback)
 {
@@ -31,7 +31,7 @@ hornero::core::event::EventBus::Subscribe(const std::string &type, const Generic
         });
 }
 
-template <NonGenericEventType Tp>
+template <hornero::core::event::NonGenericEventType Tp>
 inline void
 hornero::core::event::EventBus::Subscribe(const EventCallback<Tp> &callback)
 {
@@ -42,7 +42,7 @@ hornero::core::event::EventBus::Subscribe(const EventCallback<Tp> &callback)
         });
 }
 
-template <EventType Tp, typename... Args>
+template <hornero::core::event::EventType Tp, typename... Args>
 inline void hornero::core::event::EventBus::Post(Args... args)
 {
     events.push(std::make_unique<Tp>(std::forward<Args>(args)...));
@@ -66,14 +66,14 @@ DispatchCallbacks(Map &map, const Key &key, const auto &event)
             callback(event);
 }
 
-template <GenericEventType Tp>
+template <hornero::core::event::GenericEventType Tp>
 inline void
 hornero::core::event::EventBus::InmediateDispatch(const Tp &event)
 {
     DispatchCallbacks(generic_subscribers, event.GetTypeHash(), event);
 }
 
-template <NonGenericEventType Tp>
+template <hornero::core::event::NonGenericEventType Tp>
 inline void
 hornero::core::event::EventBus::InmediateDispatch(const Tp &event)
 {
