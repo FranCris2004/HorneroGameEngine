@@ -2,12 +2,12 @@
 #ifndef HORNERO_CORE_EVENT_GENERIC_EVENT_HPP
 #define HORNERO_CORE_EVENT_GENERIC_EVENT_HPP
 
-#include <cstdint>
 #include <string>
 #include <vector>
 #include <unordered_map>
 
 #include <hornero/core/event/event.hpp>
+#include <hornero/utils/numeric_types.hpp>
 
 namespace hornero::core::event
 {
@@ -15,7 +15,7 @@ namespace hornero::core::event
     class GenericEvent : public BaseEvent
     {
     public:
-        using hash_type = std::uint32_t;
+        using hash_type = utils::u32;
         using field_key_type = std::string;
         using field_value_type = std::string;
         using fields_type = std::unordered_map<field_key_type, field_value_type>;
