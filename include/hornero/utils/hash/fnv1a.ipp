@@ -7,7 +7,7 @@ hornero::utils::hash::Fnv1a<HashValueTp>::hash(const hornero::utils::memory::Byt
 {
     hash_value_type hash = OFFSET_BASIS;
 
-    for (std::size_t i = 0; i < bytes.size(); ++i)
+    for (size_t i = 0; i < bytes.size(); ++i)
         hash = (hash ^ static_cast<std::uint8_t>(bytes.data()[i])) * PRIME;
 
     return hash;
