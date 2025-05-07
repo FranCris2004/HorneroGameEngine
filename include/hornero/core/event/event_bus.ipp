@@ -12,7 +12,7 @@ inline hornero::core::event::EventBus::event_queue_type
 
 // Helper for safe handling of dynamic_cast
 template <hornero::core::event::EventType Tp>
-auto safe_dispatch(const hornero::core::event::BaseEvent &event, const hornero::core::event::EventCallback<Tp> &callback) -> void
+inline auto safe_dispatch(const hornero::core::event::BaseEvent &event, const hornero::core::event::EventCallback<Tp> &callback) -> void
 {
     if (const auto *casted = dynamic_cast<const Tp *>(&event))
         callback(*casted);
