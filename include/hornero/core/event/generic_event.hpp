@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <concepts>
 
 #include <hornero/core/event/event.hpp>
 #include <hornero/utils/hash/fnv1a.hpp>
