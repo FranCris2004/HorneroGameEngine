@@ -2,7 +2,7 @@
 #ifndef HORNERO_CORE_EVENT_EVENT_HPP
 #define HORNERO_CORE_EVENT_EVENT_HPP
 
-#include <type_traits>
+#include <concepts>
 
 namespace hornero::core::event
 {
