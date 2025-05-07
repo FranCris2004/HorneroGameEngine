@@ -38,7 +38,7 @@ hornero::core::event::EventBus::Subscribe(const EventCallback<Tp> &callback)
     subscribers[std::type_index(typeid(Tp))].emplace_back(
         [callback = std::move(callback)](const BaseEvent &event)
         {
-            safe_dispatch<Tp>(event, callback);
+            safe_dispatch(event, callback);
         });
 }
 
@@ -52,7 +52,7 @@ inline void
 hornero::core::event::EventBus::DispatchQueued()
 {
     for (; !events.empty(); events.pop())
-        InmediateDispatch<BaseEvent>(*events.front());
+        InmediateDispatch(*events.front());
 }
 
 template <typename Map, typename Key>
