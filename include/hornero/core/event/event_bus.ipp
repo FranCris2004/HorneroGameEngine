@@ -52,7 +52,7 @@ inline void
 hornero::core::event::EventBus::DispatchQueued()
 {
     for (; !events.empty(); events.pop())
-        InmediateDispatch(*events.front());
+        InmediateDispatch<BaseEvent>(*events.front());
 }
 
 template <typename Map, typename Key>
