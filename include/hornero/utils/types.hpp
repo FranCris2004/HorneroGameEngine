@@ -25,6 +25,9 @@ namespace hornero::utils
 
     // Size type
     using size_t = std::size_t;
+
+    // Pointer difference type
+    using ptrdiff_t = std::ptrdiff_t;
 } // namespace hornero::utils
 
 #endif // HORNERO_UTILS_TYPES_HPP
